@@ -11,7 +11,7 @@ let connect = async () => {
     await mongoose.connect(
       "mongodb+srv://Ahmed:FR0thHT8kNiI77CT@blog.xyqghfa.mongodb.net/?retryWrites=true&w=majority"
     );
-    app.listen(4000, () => console.log("server listen"));
+    app.listen(process.env.PORT || 4000, () => console.log("server listen"));
   } catch (err) {
     console.log(err);
   }
