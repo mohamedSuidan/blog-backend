@@ -22,4 +22,4 @@ app.use(auth);
 app.use(post);
 app.use(profile);
 app.use(follow);
-app.use("/public", express.static("public"));
+// app.use("/public", express.static("public"));
