@@ -29,21 +29,14 @@ exports.getAllPosts = async (req, res, next) => {
 };
 exports.addLike = async (req, res, next) => {
   let post = await postModel.findById(req.body.postId);
-  if (post.likes.length !== 0) {
-    post.likes.forEach(async (ele) => {
-      if (ele.userId === req.body.userId) {
-        await postModel.findByIdAndUpdate(req.body.postId, {
-          $pull: { likes: { userId: req.body.userId, name: req.body.name } },
-        });
-      } else {
-        await postModel.findByIdAndUpdate(req.body.postId, {
-          $push: { likes: { userId: req.body.userId, name: req.body.name } },
-        });
-      }
+
+  if (post.likes.includes(req.body.userId)) {
+    await postModel.findByIdAndUpdate(req.body.postId, {
+      $pull: { likes: req.body.userId },
     });
   } else {
     await postModel.findByIdAndUpdate(req.body.postId, {
-      $push: { likes: { userId: req.body.userId, name: req.body.name } },
+      $push: { likes: req.body.userId },
     });
   }
 };
